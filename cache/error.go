@@ -13,6 +13,7 @@ import (
 	"fmt"
 	"github.com/x-module/xmodule/internal"
 	"github.com/x-module/xmodule/xlog"
+	"runtime/debug"
 )
 
 func Error(msg string) error {
@@ -37,4 +38,10 @@ func HasWar(err error, errCode fmt.Stringer) bool {
 
 func Success(status int) bool {
 	return internal.ErrCode(status) == internal.Success
+}
+
+func PanicErr(err error, log string) {
+	if err != nil {
+		xlog.Logger.Fatal("error:%s,message:%s,trace:%s", err.Error(), log, string(debug.Stack()))
+	}
 }
