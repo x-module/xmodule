@@ -12,7 +12,6 @@ import (
 	"context"
 	"crypto/tls"
 	"fmt"
-	"github.com/redis/go-redis/v9"
 	"github.com/x-module/xmodule/internal"
 	"github.com/x-module/xmodule/xlog"
 	"time"
@@ -73,7 +72,7 @@ func InitializeRedis(config RedisConfig) *redis.Ring {
 		return shard.Ping(ctx).Err()
 	})
 	if err != nil {
-		xlog.Logger.WithField(internal.ErrField, err).Fatal(InitRedisErr.String())
+		xlog.Logger.WithField(internal.ErrField, err).Fatal(internal.InitRedisErr.String())
 	}
 	return rdb
 }

@@ -6,10 +6,11 @@
  * @desc   config.go
  */
 
-package xconfig
+package config
 
 import (
 	"github.com/x-module/helper/fileutil"
+	"github.com/x-module/xmodule/internal"
 	"gopkg.in/yaml.v3"
 	"log"
 	"os"
@@ -29,7 +30,7 @@ var (
 func ParseConfig[T any](configPath string, config T) T {
 	err := GetConfig(GetConfigFile(configPath), &config)
 	if err != nil {
-		log.Fatal(err, GetConfigErr.String())
+		log.Fatal(err, internal.GetConfigErr.String())
 	}
 	return config
 }

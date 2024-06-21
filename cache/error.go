@@ -6,7 +6,7 @@
  * @desc   error.go
  */
 
-package xerror
+package cache
 
 import (
 	"errors"

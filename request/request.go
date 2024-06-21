@@ -7,7 +7,7 @@
 * @desc 网络请求
  */
 
-package xrequest
+package request
 
 import (
 	"bytes"

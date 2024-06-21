@@ -1,21 +1,23 @@
 /**
- * Created by GoLand
+ * Created by Goland
  * @file   errors.go
-* @author 李锦 <Lijin@cavemanstudio.net>
- * @date   2022/5/26 19:36
- * @desc   错误信息定义,沿用nakama，所有的错误码都是201 ，故此系统定义的错误码都是201,无需单独定义
-*/
+ * @author 李锦 <lijin@cavemanstudio.net>
+ * @date   2024/6/17 10:33
+ * @desc   errors.go
+ */
 
-package nakama
+package internal
 
-import "github.com/x-module/xmodule/internal"
+type ErrCode int64
 
-type ErrCode internal.ErrCode
+//go:generate stringer -type ErrCode -linecomment -output errors_string.go
 
-//go:generate stringer -type ErrCode -linecomment  -output errors_string.go
+const Success ErrCode = 200 // Success
 
-// 系统功能
 const (
+	GetConfigErr             ErrCode = 10000 + iota  // 获取配置异常
+	InitRedisErr                                     // 初始化系统-连接Redis数据库异常
+	ConnectMysqlErr                                  // 连接数据库异常
 	StartServerErr           ErrCode = 101000 + iota // 启动服务异常
 	ActionErr                                        // 操作异常
 	SystemErr                                        // 系统异常
@@ -23,7 +25,6 @@ const (
 	listenConfigErr                                  // 配置文件监控失败
 	ParamsError                                      // 参数异常，请检查
 	ParamsErr                                        // 参数异常，请检查
-	ConnectMysqlErr                                  // 连接数据库异常
 	RequestOvertimeErr                               // 请求发起时间超时
 	SignErr                                          // 参数签名异常
 	NoSignParamsErr                                  // 参数签名时间戳或签名为异常
@@ -52,7 +53,7 @@ const (
 	GetTokenErr                                      // 获取Token信息异常
 	GetLeaderboardListErr                            // 获取Nakama排行榜数据列表异常
 	GetLeaderboardDetailErr                          // 获取Nakama排行榜数据详情异常
-	ParseJsonDataErr                                 // 解析Nakama json数据异常
+	ParseJsonDataErr                                 // 解析JSON数据异常
 	GetAccountListErr                                // 获取Nakama账户列表异常
 	DeleteAccountErr                                 // 删除Nakama账户列表异常
 	EditeAccountErr                                  // 编辑Nakama账户列表异常
@@ -82,11 +83,9 @@ const (
 	RepeatRequestError                               // 重复请求
 	InitSessionRedisErr                              // 初始化sessionRedis连接异常
 	InitMysqlErr                                     // 初始化系统-连接管理后台数据库异常。
-	InitRedisErr                                     // 初始化系统-连接Redis数据库异常
 	GetSystemNoticeConfigErr                         // 获取系统通知配置文件异常
 	RegisterServerErr                                // 服务注册异常
 	GetServerErr                                     // 获取服务异常
-	GetConfigErr                                     // 获取配置异常
 	ListenConfigErr                                  // 监听配置异常
 	GetNamingClientErr                               // 获取服务实例异常
 	GetConfigClientErr                               // 获取配置实例异常
@@ -99,4 +98,5 @@ const (
 	NoRecordErr                                      // 数据查询为空！
 	PublishErr                                       // 发布消息异常
 	TransDataTypeErr                                 // 数据类型转换异常
+
 )

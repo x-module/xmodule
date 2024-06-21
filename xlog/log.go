@@ -9,8 +9,7 @@
 package xlog
 
 import (
-	"github.com/druidcaesa/gotool"
-	"github.com/druidcaesa/gotool/openfile"
+	"fmt"
 	rotatelogs "github.com/lestrrat-go/file-rotatelogs"
 	"github.com/rifflock/lfshook"
 	"github.com/sirupsen/logrus"
@@ -67,6 +66,11 @@ func (x *Xlogger) Warn(args ...any) {
 	x.logger.Warn(args...)
 }
 
+// Warning 警告日志
+func (x *Xlogger) Warning(args ...any) {
+	x.logger.Warn(args...)
+}
+
 // Error 错误日志
 func (x *Xlogger) Error(args ...any) {
 	x.logger.Error(args...)
@@ -90,15 +94,15 @@ type LogConfig struct {
 
 // InitLogger 日志模块初始化
 func InitLogger(config LogConfig) *Xlogger {
-	if !fileutil.IsExist(config.LogFile) {
-		err := os.MkdirAll(config.LogFile, os.ModePerm)
+	if !fileutil.IsExist(config.LogPath) {
+		err := fileutil.CreateDir(config.LogPath)
 		xerror.PanicErr(err, "init system error. make log data err.path:"+config.LogFile)
 	}
-	// 日志文件
-	fileName := path.Join(config.LogFile, config.LogFile)
-	if !gotool.FileUtils.Exists(fileName) {
-		openfile.Create(fileName)
-		if !gotool.FileUtils.Exists(fileName) {
+	fileName := path.Join(config.LogPath, config.LogFile)
+	fmt.Println("log file path:", fileName)
+	if !fileutil.IsExist(fileName) {
+		fileutil.CreateFile(fileName)
+		if !fileutil.IsExist(fileName) {
 			panic("init system error. create log file err. log file:" + fileName)
 		}
 	}

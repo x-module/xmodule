@@ -8,9 +8,6 @@
 
 package internal
 
-type ErrCode int64
-
 const (
-	Success  ErrCode = 200 // Success
-	ErrField         = "Err"
+	ErrField = "Err"
 )

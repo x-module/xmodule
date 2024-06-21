@@ -7,7 +7,7 @@
 * @desc 请求响应
  */
 
-package xrequest
+package request
 
 import (
 	"encoding/json"
