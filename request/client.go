@@ -38,3 +38,9 @@ func (r *Client) Debug(debug ...bool) *Client {
 	}
 	return r
 }
+
+func (r *Client) Post(url string) *gentleman.Request {
+	req := r.Request()
+	req.Method("POST").URL(url)
+	return req
+}
